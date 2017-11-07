@@ -1,7 +1,12 @@
 package com.github.rshindo.junit5sample;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assumptions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -70,10 +75,10 @@ public class AssertionsTest {
         });
         assertEquals("a message", exception.getMessage());
     }
-    
-    
-    
-    
+
+
+
+
     @Test
     @DisplayName("CIサーバでのみ実行")
     void testOnlyOnCiServer() {

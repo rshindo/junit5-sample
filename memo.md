@@ -1,9 +1,9 @@
 # Memo
 
-https://speakerdeck.com/eyamane/junit5falsewei-jian
-http://junit.org/junit5/docs/current/user-guide/
-https://speakerdeck.com/irof/dousiyoujunit5
-https://qiita.com/opengl-8080/items/40a922bfdd2709aaea1f
+https://speakerdeck.com/eyamane/junit5falsewei-jian  
+http://junit.org/junit5/docs/current/user-guide/  
+https://speakerdeck.com/irof/dousiyoujunit5  
+https://qiita.com/opengl-8080/items/40a922bfdd2709aaea1f  
 
 ## Modules
 
@@ -105,6 +105,12 @@ assertAllのネストもできるが、reportingが細かく出ない。
 #### Disabled
 
 クラスorメソッドに@Disabledつけると実行しない
+
+
+### テストクラスのライフサイクル
+
+デフォルトでテストメソッドごとにインスタンスが生成される。（テストごとの独立性と予想外の副作用を避けるため）  
+@TestInstance(Lifecycle.PER_CLASS)って書くとテストクラスのインスタンスが１回だけ生成されるようになる。こうすると@BeforeAllと@AfterAllのメソッドを非staticに書けるようになる。
 
 
 
