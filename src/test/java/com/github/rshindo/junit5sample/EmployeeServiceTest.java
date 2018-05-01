@@ -1,62 +1,44 @@
 package com.github.rshindo.junit5sample;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-			@TestInstance(Lifecycle.PER_CLASS)
-class EmployeeServiceTest {
-
-	static {
-		System.out.println("static initialized");
+public class EmployeeServiceTest {
+	EmployeeService service;
+	@BeforeEach
+	void setUp() {
+		this.service = new EmployeeService();
+	}
+	@Test
+	@DisplayName("IDで検索する")
+	void testFindById() {
+		Employee employee = service.findById(1);
+		assertAll("employee",
+                () -> assertEquals("Midori", employee.getFirstName()),
+                () -> assertEquals("Imai", employee.getLastName())
+        );
 	}
 
-	{
-		System.out.println("instance created");
+	@Nested
+	@DisplayName("名前で検索する")
+	class FindByFirstNameStartingWithTest {
+		@Test
+		@DisplayName("firstNameが「E」から始まる")
+		void startsWithE() {
+			List<Employee> employees = service.findByFirstNameStartingWith("E");
+			assertEquals(employees.size(), 1);
+			Employee employee = employees.get(0);
+			assertAll("employee",
+	                () -> assertEquals("Ema", employee.getFirstName()),
+	                () -> assertEquals("Yasuhara", employee.getLastName())
+	        );
+		}
 	}
-
-    @BeforeAll
-    static void initAll() {
-        System.out.println("initAll");
-    }
-
-    @BeforeEach
-    void init() {
-        System.out.println("init each");
-    }
-
-    @Test
-    void succeedingTest() {
-    }
-
-    @Test
-    @DisplayName("失敗するテスト")
-    void failingTest() {
-        fail("a failing test");
-    }
-
-    @Test
-    @Disabled("for demonstration purposes")
-    void skippedTest() {
-        // not executed
-    }
-
-    @AfterEach
-    void tearDown() {
-        System.out.println("tear down each");
-    }
-
-    @AfterAll
-    static void tearDownAll() {
-        System.out.println("tear down all");
-    }
-
 }

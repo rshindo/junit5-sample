@@ -17,7 +17,7 @@ public class AssertionsTest {
     void standardAssertions() {
         assertEquals(2, 2);
         assertEquals(4, 4, "The optional assertion message is now the last parameter.");
-        assertTrue(2 == 2, () -> "Assertion messages can be lazily evaluated -- "
+        assertEquals(2, 2, () -> "Assertion messages can be lazily evaluated -- "
                 + "to avoid constructing complex messages unnecessarily.");
     }
 
@@ -36,7 +36,7 @@ public class AssertionsTest {
     @Test
     void dependentAssertions() {
 
-        Employee employee = new Employee("Johna", "Doe", 22);
+        Employee employee = new Employee("John", "Doe", 22);
         // Within a code block, if an assertion fails the
         // subsequent code in the same block will be skipped.
         assertAll("properties",
